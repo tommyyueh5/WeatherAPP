@@ -15,8 +15,7 @@ export function requestService(config) {
     service.interceptors.request.use(config => {
         return config
     }, error => {
-        console.log(error)
-        Promise.reject(error)
+        return Promise.reject(error)
     })
 
     // 响应拦截器
