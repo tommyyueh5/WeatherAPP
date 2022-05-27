@@ -3,12 +3,13 @@ import {
 } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Path from 'path'
+import tailwindcss from 'tailwindcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), tailwindcss],
   server: {
-    open:true,
+    open: true,
     port: 4200
   },
   preview: {
@@ -16,8 +17,18 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': Path.resolve(__dirname, 'src')
+      '@': Path.resolve(__dirname, 'src'),
+      '/images': 'src/assets/images'
     },
   },
-  plugins: [vue()]
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
+  }
+
 })
